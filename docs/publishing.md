@@ -5,6 +5,8 @@ Exact steps for keeping the public repo discoverable. Replace the owner path if 
 Repo: `https://github.com/ajihairi/figma-xml-to-ui`
 Canonical install: `npx skills add ajihairi/figma-xml-to-ui`
 
+Current state (verified): public repository, `main` is the default branch, 6 topics applied, `npx skills add … --list` resolves one skill.
+
 ---
 
 ## 1. Topics (helps skills.sh / GitHub discovery)
@@ -53,6 +55,25 @@ curl -sS -X PUT \
 ```
 
 Rules: lowercase, hyphens instead of spaces, max 20 topics.
+
+### Troubleshooting: `api.github.com` won't resolve
+
+Some VPN / corporate resolvers fail on `api.github.com` while `github.com` still works. `gh` has no per-host DNS flag, so use `curl` with a pinned IP:
+
+```bash
+IP=$(dig +short api.github.com @1.1.1.1 | tail -1)
+curl -sS --resolve "api.github.com:443:$IP" \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer $GITHUB_TOKEN" \
+  https://api.github.com/repos/ajihairi/figma-xml-to-ui/topics
+```
+
+Verify without auth (a public repo returns the list):
+
+```bash
+curl -sS --resolve "api.github.com:443:$IP" \
+  https://api.github.com/repos/ajihairi/figma-xml-to-ui/topics
+```
 
 ---
 
