@@ -8,13 +8,7 @@
   Reference render of examples/sample-login.xml.
   Purpose: pixel reference for comparing generated UI against the source frame.
   Rule: every value here is copied 1:1 from the XML — do not "improve" this file,
-  change the XML instead, then regenerate preview.png:
-      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
-        --headless=new --hide-scrollbars \
-        --window-size=375,812 --force-device-scale-factor=2 \
-        --default-background-color=00000000 \
-        --screenshot=examples/preview.png \
-        "file://$PWD/examples/preview.html"
+  change the XML instead, then regenerate with:  bash scripts/preview.sh
 -->
 <style>
   * { box-sizing: border-box; }

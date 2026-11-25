@@ -119,27 +119,33 @@ Empty `skills: []` right after publishing is expected. Topics from step 1 improv
 
 ## 4. Regenerate the preview render
 
-`examples/preview.html` is the hand-checked 1:1 render of `examples/sample-login.xml`. After changing either file, regenerate the PNG:
+`examples/preview.html` is the hand-checked 1:1 render of `examples/sample-login.xml`. After changing either file:
 
 ```bash
-cd figma-xml-to-ui
-"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
-  --headless=new --hide-scrollbars \
-  --window-size=375,812 --force-device-scale-factor=2 \
-  --default-background-color=ffffff \
-  --screenshot=examples/preview.png \
-  "file://$PWD/examples/preview.html"
+bash scripts/preview.sh                       # macOS: uses Chrome/Chromium if installed
+CHROME_BIN=/usr/bin/chromium bash scripts/preview.sh   # explicit binary
 ```
 
-On Linux use `google-chrome` or `chromium` instead of the macOS app path. Output is 750 × 1624 (375 × 812 at 2×).
+The script finds Chrome or Chromium, shoots at 375 × 812 @2×, and fails if the output is not 750 × 1624. Then compare generated UI against the PNG at 100%, not inside a device simulator with its own chrome.
 
-Then compare generated UI against the PNG at 100%, not by eyeballing a screenshot inside a device simulator with its own chrome.
+## 5. Automated checks
+
+CI (`.github/workflows/validate.yml`) runs on every push:
+
+```bash
+xmllint --noout examples/*.xml
+python3 scripts/check-skill.py     # frontmatter, name/folder match, reference integrity
+python3 scripts/check-examples.py  # FigML schema, layout geometry, preview text coverage
+```
+
+`check-examples.py` is what catches the class of bug where a `FILL` child's explicit size disagrees with padding + gaps + stroke. Run all three locally before pushing.
 
 ---
 
-## 5. Pre-push checklist
+## 6. Pre-push checklist
 
-- [ ] `xmllint --noout examples/sample-login.xml`
+- [ ] `xmllint --noout examples/*.xml`
+- [ ] `python3 scripts/check-skill.py` and `python3 scripts/check-examples.py` pass
 - [ ] `npx skills add ajihairi/figma-xml-to-ui --list` finds exactly one skill
 - [ ] No client XML, `.env`, or proprietary tokens under `examples/`
 - [ ] `LICENSE` copyright line and commit author are the intended handle

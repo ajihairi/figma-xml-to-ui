@@ -4,7 +4,7 @@ Copy this file to `.opencode/figma-map.md` at your repo root and edit the sectio
 
 ## Components
 
-Map Figma component or frame names to existing code components. Include the props or initializer so the agent knows how to fill it.
+Map Figma component or frame names to existing code components. FigML exports instances with the component name as the element tag, so matching is on `name` and `type="INSTANCE"`, not on the tag string. Include the props or initializer so the agent knows how to fill it.
 
 | Figma name | Code component | Import path | Notes |
 |---|---|---|---|
@@ -62,3 +62,5 @@ Map exact Figma values to semantic tokens. Only 1:1 matches — the agent will n
 - Language for UI copy: keep English as authored in Figma.
 - File placement: screens go in `src/screens/`, shared UI in `src/components/ui/`.
 - Do not introduce new dependencies for icons or fonts without asking.
+- Assets: when the export has an `IMAGE` fill with no file, leave `TODO(figma): export image "<name>"` with the exact box. Never substitute a stock photo.
+- Approximations: list every approximation (shadow via elevation, gradient fallback, blur) in the final report.

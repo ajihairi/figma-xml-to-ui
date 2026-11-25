@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?figml version="1.0"?>
+<!--
+  FigML coverage fixture — "Profile Card", 327 x 200.
+  No auto-layout on the root: every child is absolutely positioned.
+
+  This file exists to exercise paths the login screen does not:
+    1. IMAGE fill with no exported bitmap -> must produce a TODO, not a fake picture.
+    2. GRADIENT_LINEAR overlay -> real gradient, stops bottom-up.
+    3. INNER_SHADOW effect -> platform-specific handling, never silently dropped.
+    4. visible="false" badge -> must be skipped entirely.
+    5. rotation="8" -> transform applied on top of the absolute position.
+    6. A real text/image box that must keep exact bounds.
+-->
+<frame id="2:1" name="Profile Card" type="FRAME"
+       x="24" y="120" width="327" height="200"
+       cornerRadius="16" clipsContent="true" strokeWeight="1" strokeAlign="INSIDE">
+  <children>
+
+    <Rectangle id="2:2" name="Cover" type="RECTANGLE" x="0" y="0" width="327" height="120">
+      <fills>
+        <fill type="IMAGE" imageRef="img_8f31a" scaleMode="FILL" blendMode="NORMAL" />
+      </fills>
+      <constraints horizontal="STRETCH" vertical="MIN" />
+    </Rectangle>
+
+    <Rectangle id="2:3" name="Scrim" type="RECTANGLE" x="0" y="60" width="327" height="60">
+      <fills>
+        <fill type="GRADIENT_LINEAR" blendMode="NORMAL">
+          <gradientStops>
+            <gradientStop position="0" color="#18181B" opacity="0" />
+            <gradientStop position="1" color="#18181B" opacity="0.75" />
+          </gradientStops>
+        </fill>
+      </fills>
+      <constraints horizontal="STRETCH" vertical="MIN" />
+    </Rectangle>
+
+    <Rectangle id="2:4" name="Avatar" type="RECTANGLE" x="24" y="96" width="56" height="56"
+               cornerRadius="28" strokeWeight="3" strokeAlign="INSIDE">
+      <fills>
+        <fill type="IMAGE" imageRef="img_2c07b" scaleMode="FILL" blendMode="NORMAL" />
+      </fills>
+      <strokes><stroke blendMode="NORMAL" color="#FFFFFF" /></strokes>
+    </Rectangle>
+
+    <Rectangle id="2:5" name="Badge / Beta" type="RECTANGLE" visible="false"
+               x="255" y="12" width="48" height="22" cornerRadius="11">
+      <fills><fill blendMode="NORMAL" color="#F4F4F5" /></fills>
+    </Rectangle>
+
+    <frame id="2:6" name="Badge / NEW" type="FRAME" x="255" y="12" width="48" height="22"
+           rotation="8" layoutMode="HORIZONTAL" itemSpacing="0"
+           primaryAxisAlignItems="CENTER" counterAxisAlignItems="CENTER" cornerRadius="11">
+      <children>
+        <Text id="2:7" name="Label" type="TEXT" x="10" y="3" width="28" height="16"
+              characters="NEW" fontSize="10" fontWeight="700" textAlignHorizontal="CENTER"
+              textAutoResize="WIDTH_AND_HEIGHT">
+          <fills><fill blendMode="NORMAL" color="#18181B" /></fills>
+          <fontName family="Inter" style="Bold" />
+          <letterSpacing value="0.5" unit="PIXELS" />
+          <lineHeight value="16" unit="PIXELS" />
+          <constraints horizontal="MIN" vertical="MIN" />
+        </Text>
+      </children>
+      <fills><fill blendMode="NORMAL" color="#F4F4F5" /></fills>
+      <constraints horizontal="MAX" vertical="MIN" />
+    </frame>
+
+    <Text id="2:8" name="Name" type="TEXT" x="24" y="164" width="180" height="22"
+          characters="Ayu Pradipta" fontSize="16" fontWeight="600" textAlignHorizontal="LEFT"
+          textAutoResize="HEIGHT">
+      <fills><fill blendMode="NORMAL" color="#18181B" /></fills>
+      <fontName family="Inter" style="Semi Bold" />
+      <letterSpacing value="0" unit="PERCENT" />
+      <lineHeight value="22" unit="PIXELS" />
+      <constraints horizontal="MIN" vertical="MAX" />
+    </Text>
+
+    <Text id="2:9" name="Role" type="TEXT" x="24" y="186" width="180" height="18"
+          characters="Product designer · Bali" fontSize="13" fontWeight="400" textAlignHorizontal="LEFT"
+          textAutoResize="HEIGHT">
+      <fills><fill blendMode="NORMAL" color="#71717A" /></fills>
+      <fontName family="Inter" style="Regular" />
+      <letterSpacing value="0" unit="PERCENT" />
+      <lineHeight value="18" unit="PIXELS" />
+      <constraints horizontal="MIN" vertical="MAX" />
+    </Text>
+
+  </children>
+  <fills><fill blendMode="NORMAL" color="#FFFFFF" /></fills>
+  <strokes><stroke blendMode="NORMAL" color="#E4E4E7" /></strokes>
+  <effects>
+    <effect type="INNER_SHADOW" radius="18" spread="-2" blendMode="NORMAL" color="#000000" opacity="0.12">
+      <offset x="0" y="4" />
+    </effect>
+  </effects>
+  <constraints horizontal="MIN" vertical="MIN" />
+</frame>
