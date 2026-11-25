@@ -83,7 +83,11 @@ The agent reads the platform rulebook, discovers your tokens and components, tra
 Use figma-xml-to-ui to convert @examples/sample-login.xml into a single LoginScreen component. Match the 9-point checklist in the file header exactly.
 ```
 
-Export it first, then diff the result against your Figma frame.
+**Reference render** — open at 100% and compare side by side with the generated screen:
+
+![Reference render of the sample login screen](examples/preview.png)
+
+`examples/preview.html` is the hand-checked 1:1 render of the XML, exported as `preview.png` at 375 × 812 (2×). Compare boxes, spacing, and colors against it; the preview renders with the system UI font because the XML names no font family, so only glyph widths can differ in your app. Regenerate the PNG with the command in [`docs/publishing.md`](docs/publishing.md#4-regenerate-the-preview-render).
 
 ---
 
@@ -101,7 +105,11 @@ figma-xml-to-ui/
 │       └── assets/
 │           └── figma-map.template.md # starter .opencode/figma-map.md
 ├── examples/
-│   └── sample-login.xml              # clean end-to-end fixture
+│   ├── sample-login.xml              # clean end-to-end fixture
+│   ├── preview.html                  # 1:1 reference render of the fixture
+│   └── preview.png                   # 750 × 1624 screenshot of preview.html
+├── docs/
+│   └── publishing.md                 # topics, install check, preview regen
 ├── LICENSE
 └── README.md
 ```
@@ -116,7 +124,7 @@ figma-xml-to-ui/
 npx skills add ajihairi/figma-xml-to-ui --list
 ```
 
-Confirm the CLI lists the skill and parses the frontmatter. Also check that no client XML, `.env`, or proprietary design tokens are committed under `examples/`.
+Full checklist, including topics and skills.sh indexing: [`docs/publishing.md`](docs/publishing.md).
 
 ---
 
